@@ -1,0 +1,8 @@
+BENIGN
+Bot
+DosFam
+Heartbleed
+Infiltration
+Patator
+PortScan
+WebAttack

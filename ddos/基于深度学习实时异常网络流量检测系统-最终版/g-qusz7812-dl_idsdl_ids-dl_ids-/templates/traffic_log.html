@@ -1,0 +1,355 @@
+{% extends 'base-index.html' %}
+{% block main_body %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Traffic Logs</h1>
+        <div>
+            <button class="btn btn-danger" onclick="deleteSelected()">
+                <i class="fas fa-trash"></i> Delete Selected
+            </button>
+            <button class="btn btn-success" onclick="exportToCSV()">
+                <i class="fas fa-file-export"></i> Export CSV
+            </button>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Search Criteria</h6>
+        </div>
+        <div class="card-body">
+            <form id="searchForm" class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="src_ip" class="mr-2">Source IP Address:</label>
+                    <input type="text" class="form-control" id="src_ip" name="src_ip" placeholder="Enter source IP address">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="threat" class="mr-2">Threat Level:</label>
+                    <select class="form-control" id="threat" name="threat">
+                        <option value="">All</option>
+                        <option value="High Risk">High Risk</option>
+                        <option value="Medium Risk">Medium Risk</option>
+                        <option value="Low Risk">Low Risk</option>
+                        <option value="No Attack Detected">Normal</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Traffic Log List</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="trafficLogTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>Created Time</th>
+                            <th>Source IP Address</th>
+                            <th>Destination IP Address</th>
+                            <th>Source Port</th>
+                            <th>Destination Port</th>
+                            <th>Protocol</th>
+                            <th>Attack Type</th>
+                            <th>Threat Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in traffic_logs %}
+                        <tr>
+                            <td><input type="checkbox" class="log-checkbox" value="{{ log.id }}"></td>
+                            <td>{{ log.create_time }}</td>
+                            <td>{{ log.src_ip }}</td>
+                            <td>{{ log.dst_ip }}</td>
+                            <td>{{ log.src_port }}</td>
+                            <td>{{ log.dst_port }}</td>
+                            <td>{{ log.protocol }}</td>
+                            <td>
+                                {% if log.attack_type %}
+                                {% if log.threat == 'High Risk' %}
+                                <span class="badge badge-danger">{{ log.attack_type }}</span>
+                                {% elif log.threat == 'Medium Risk' %}
+                                <span class="badge badge-warning">{{ log.attack_type }}</span>
+                                {% elif log.threat == 'Low Risk' %}
+                                <span class="badge badge-info">{{ log.attack_type }}</span>
+                                {% else %}
+                                <span class="badge badge-success">{{ log.attack_type }}</span>
+                                {% endif %}
+                                {% else %}
+                                <span class="badge badge-success">Normal</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.threat == 'High Risk' %}
+                                <span class="badge badge-danger">High Risk</span>
+                                {% elif log.threat == 'Medium Risk' %}
+                                <span class="badge badge-warning">Medium Risk</span>
+                                {% elif log.threat == 'Low Risk' %}
+                                <span class="badge badge-info">Low Risk</span>
+                                {% else %}
+                                <span class="badge badge-success">Normal</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-sm" onclick="viewDetails({{ log.id }})">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteLog({{ log.id }})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if traffic_logs.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ traffic_logs.previous_page_number }}{% if request.GET.src_ip %}&src_ip={{ request.GET.src_ip }}{% endif %}{% if request.GET.threat %}&threat={{ request.GET.threat }}{% endif %}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        
+                        {% if traffic_logs.number > 3 %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% if request.GET.src_ip %}&src_ip={{ request.GET.src_ip }}{% endif %}{% if request.GET.threat %}&threat={{ request.GET.threat }}{% endif %}">1</a>
+                        </li>
+                        {% if traffic_logs.number > 4 %}
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        
+                        {% for num in traffic_logs.paginator.page_range %}
+                            {% if num >= traffic_logs.number|add:'-2' and num <= traffic_logs.number|add:'2' %}
+                                {% if num == traffic_logs.number %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if request.GET.src_ip %}&src_ip={{ request.GET.src_ip }}{% endif %}{% if request.GET.threat %}&threat={{ request.GET.threat }}{% endif %}">{{ num }}</a>
+                                </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if traffic_logs.number < traffic_logs.paginator.num_pages|add:'-2' %}
+                        {% if traffic_logs.number < traffic_logs.paginator.num_pages|add:'-3' %}
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ traffic_logs.paginator.num_pages }}{% if request.GET.src_ip %}&src_ip={{ request.GET.src_ip }}{% endif %}{% if request.GET.threat %}&threat={{ request.GET.threat }}{% endif %}">{{ traffic_logs.paginator.num_pages }}</a>
+                        </li>
+                        {% endif %}
+                        
+                        {% if traffic_logs.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ traffic_logs.next_page_number }}{% if request.GET.src_ip %}&src_ip={{ request.GET.src_ip }}{% endif %}{% if request.GET.threat %}&threat={{ request.GET.threat }}{% endif %}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Traffic Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="logDetails"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready(function() {
+    // Initialize DataTable
+    $('#trafficLogTable').DataTable({
+        "order": [[1, "desc"]],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/English.json",
+            "info": "",
+            "infoEmpty": "",
+            "infoFiltered": ""
+        },
+        "paging": false,
+        "searching": false,
+        "lengthChange": false,
+        "info": false
+    });
+
+    // Select all/deselect all
+    $('#selectAll').change(function() {
+        $('.log-checkbox').prop('checked', $(this).prop('checked'));
+    });
+
+    // Search form submission
+    $('#searchForm').submit(function(e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+        window.location.href = '?' + formData;
+    });
+
+    // Set initial values for search boxes
+    $('#src_ip').val('{{ request.GET.src_ip|default:"" }}');
+    $('#threat').val('{{ request.GET.threat|default:"" }}');
+});
+
+function viewDetails(logId) {
+    $.ajax({
+        url: '/api/traffic-log/' + logId + '/',
+        method: 'GET',
+        success: function(response) {
+            let details = response.data;
+            let html = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Created Time:</strong>${details.create_time}</p>
+                        <p><strong>Source IP Address:</strong>${details.src_ip}</p>
+                        <p><strong>Destination IP Address:</strong>${details.dst_ip}</p>
+                        <p><strong>Source Port:</strong>${details.src_port}</p>
+                        <p><strong>Destination Port:</strong>${details.dst_port}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Protocol:</strong>${details.protocol}</p>
+                        <p><strong>Attack Type:</strong>${details.attack_type || 'Normal'}</p>
+                        <p><strong>Threat Level:</strong>${details.threat || 'Normal'}</p>
+                        <p><strong>Feature Content:</strong>${details.features || 'None'}</p>
+                    </div>
+                </div>
+            `;
+            $('#logDetails').html(html);
+            $('#detailsModal').modal('show');
+        }
+    });
+}
+
+function deleteLog(logId) {
+    if (confirm('Are you sure you want to delete this log?')) {
+        $.ajax({
+            url: '/api/traffic-log-delete/' + logId + '/',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    location.reload();
+                       alert("Deleted successfully!");
+                } else {
+                    alert('Delete failed: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                alert('Delete failed: ' + xhr.responseJSON.message);
+            }
+        });
+    }
+}
+
+function deleteSelected() {
+    let selectedIds = [];
+    $('.log-checkbox:checked').each(function() {
+        selectedIds.push($(this).val());
+    });
+
+    if (selectedIds.length === 0) {
+        alert('Please select logs to delete');
+        return;
+    }
+
+    if (confirm('Are you sure you want to delete the selected logs?')) {
+        $.ajax({
+            url: '/api/traffic-log/batch-delete/',
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            data: {
+                'ids[]': selectedIds
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    location.reload();
+                } else {
+                    alert('Delete failed: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                alert('Delete failed: ' + xhr.responseJSON.message);
+            }
+        });
+    }
+}
+
+function exportToCSV() {
+    let formData = $('#searchForm').serialize();
+    window.location.href = '/api/traffic-log/export/?' + formData;
+}
+</script>
+
+<style>
+/* Hide DataTable info display */
+.dataTables_info {
+    display: none !important;
+}
+
+/* Optimize pagination styles */
+.pagination {
+    margin: 0;
+}
+
+.page-link {
+    padding: 0.5rem 0.75rem;
+}
+
+.page-item.active .page-link {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.page-link {
+    color: #4e73df;
+}
+
+.page-link:hover {
+    color: #2e59d9;
+    background-color: #eaecf4;
+    border-color: #dddfeb;
+}
+</style>
+{% endblock %} 

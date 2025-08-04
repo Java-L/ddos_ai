@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login - Real-time Network Intrusion Detection System Based on Deep Learning</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static "myadmin/vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="{% static "myadmin/css/sb-admin-2.min.css" %}" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f8ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header i {
+            font-size: 2.5rem;
+            color: #4e73df;
+            margin-bottom: 15px;
+        }
+
+        .login-header h1 {
+            color: #2e59d9;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #6e707e;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border: 1px solid #e3e6f0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.15);
+        }
+
+        .btn-login {
+            background: #4e73df;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            color: white;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: #2e59d9;
+            transform: translateY(-1px);
+        }
+
+        .login-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .login-footer a {
+            color: #4e73df;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .login-footer a:hover {
+            color: #2e59d9;
+        }
+
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .captcha-container img {
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .refresh-captcha {
+            color: #4e73df;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .refresh-captcha:hover {
+            transform: rotate(180deg);
+        }
+
+        .error-message {
+            background: #ffe6e6;
+            color: #dc3545;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Real-time Network Intrusion Detection System Based on Deep Learning</h1>
+                <p>Intelligent Detection Platform Based on Deep Learning</p>
+            </div>
+
+            <form action="{% url 'myadmin_do_login' %}" method="post" id="loginForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Please enter username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="pass" placeholder="Please enter password" required>
+                </div>
+                <div class="form-group">
+                    <div class="captcha-container">
+                        {{ captcha_form.captcha }}
+                        <a href="javascript:void(0);" onclick="refreshPage();" class="refresh-captcha" title="Click to refresh captcha">
+                            <i class="fas fa-sync-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Login
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <a href="{% url 'myadmin_register' %}">
+                    <i class="fas fa-user-plus mr-1"></i>创建账户
+                </a>
+                <a href="{% url 'forgot_pd' %}">
+                    <i class="fas fa-key mr-1"></i>忘记密码
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static "myadmin/vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "myadmin/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "myadmin/vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+    <script src="{% static "myadmin/js/sb-admin-2.min.js" %}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 验证码输入框样式
+            var captchaInput = document.getElementById("id_captcha_1");
+            captchaInput.classList.add('form-control');
+            captchaInput.setAttribute('placeholder', '请输入验证码');
+
+            // 显示服务器返回的错误信息
+            {% if messages %}
+                {% for message in messages %}
+                    {% if forloop.last %}
+                        showToast("{{ message }}", "{{ message.tags }}");
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            // 表单提交验证
+            document.getElementById('loginForm').addEventListener('submit', function (e) {
+                const username = this.querySelector('input[name="username"]').value;
+                const password = this.querySelector('input[name="pass"]').value;
+                const captcha = this.querySelector('input[name="captcha_1"]').value;
+
+                if (!username || !password || !captcha) {
+                    e.preventDefault();
+                    showToast('请填写所有必填字段', 'error');
+                }
+            });
+        });
+
+        function refreshPage() {
+            window.location.reload();
+        }
+
+        function showToast(message, type = 'error') {
+            // 移除现有的错误消息
+            const existingToast = document.querySelector('.error-message');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `error-message ${type === 'error' ? 'show' : ''}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle mr-2"></i>
+                ${message}
+            `;
+            document.querySelector('.login-card').insertBefore(toast, document.querySelector('form'));
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

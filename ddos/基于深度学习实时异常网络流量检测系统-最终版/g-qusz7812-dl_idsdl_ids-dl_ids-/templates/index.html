@@ -1,0 +1,794 @@
+{% extends 'base-index.html' %}
+{% load static %}
+{% block css %}
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(26, 31, 60, 0.1), rgba(45, 54, 99, 0.1));
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .hero-description {
+            color: #4a5568;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .scan-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .scan-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .scan-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-file {
+            margin-bottom: 2rem;
+        }
+
+        .custom-file-input {
+            cursor: pointer;
+        }
+
+        .custom-file-label {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border: 2px dashed #cbd5e1;
+        }
+
+        .custom-file-label i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .model-select-container {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .model-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .model-option {
+            position: relative;
+            padding: 1.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .model-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .model-option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.05), rgba(var(--accent-color-rgb), 0.05));
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-option-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .model-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .model-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .model-description {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .model-features {
+            margin-top: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        .selected-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .model-option.selected .selected-badge {
+            display: block;
+        }
+
+        .scan-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scan-button i {
+            font-size: 1.2rem;
+        }
+
+        #result-echarts {
+            margin-top: 2rem;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 400px;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        #loading {
+            margin-left: 1rem;
+        }
+
+        /* 新增数据集详情样式 */
+        .dataset-info {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .dataset-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(26, 31, 60, 0.05), rgba(45, 54, 99, 0.05));
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        /* 新增操作指南样式 */
+        .guide-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .guide-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .guide-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step-item {
+            position: relative;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .step-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* 新增告警日志样式 */
+        .alert-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-filters {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .alert-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .alert-item:hover {
+            background: #f8fafc;
+        }
+
+        .alert-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-time {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .alert-severity {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .severity-high {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .severity-medium {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .severity-low {
+            background: #dcfce7;
+            color: #16a34a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .alert-content {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-details {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .alert-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card-title {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .chart-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block main_body %}
+    <div class="container">
+        <div class="hero-section">
+            <h1 class="hero-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Real-time Network Intrusion Detection System Based on Deep Learning
+            </h1>
+            <p class="hero-description">
+                Real-time monitoring of network traffic anomalies, timely detection and handling of potential security threats.
+                The system uses advanced deep learning algorithms to provide you with accurate anomaly detection services.
+            </p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-card-title">Total Alerts</div>
+                <div class="stat-card-value" id="total-alerts">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">High Risk Alerts</div>
+                <div class="stat-card-value" id="high-alerts">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Medium Risk Alerts</div>
+                <div class="stat-card-value" id="medium-alerts">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-title">Low Risk Alerts</div>
+                <div class="stat-card-value" id="low-alerts">0</div>
+            </div>
+        </div>
+
+        <!-- Chart Area -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h3 class="chart-title">
+                        <i class="fas fa-chart-line"></i>
+                        Alert Trend Analysis
+                    </h3>
+                    <div id="alert-trend-chart" style="height: 300px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h3 class="chart-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Alert Type Distribution
+                    </h3>
+                    <div id="alert-type-chart" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Log List -->
+        <div class="alert-section">
+            <div class="alert-header">
+                <h3 class="alert-title">
+                    <i class="fas fa-bell"></i>
+                    Recent Alert Logs
+                </h3>
+                <div class="alert-filters">
+                    <button class="filter-btn active" data-filter="All">All</button>
+                    <button class="filter-btn" data-filter="High Risk">High Risk</button>
+                    <button class="filter-btn" data-filter="Medium Risk">Medium Risk</button>
+                    <button class="filter-btn" data-filter="Low Risk">Low Risk</button>
+                </div>
+            </div>
+            <div class="alert-list" id="alert-list">
+                <!-- Alert list will be dynamically loaded via JavaScript -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static "main/js/index.js" %}"></script>
+    <script src="{% static "dist/echarts.min.js" %}"></script>
+    <script>
+        // 初始化图表
+        var trendChart = echarts.init(document.getElementById('alert-trend-chart'));
+        var typeChart = echarts.init(document.getElementById('alert-type-chart'));
+
+        // 获取仪表盘数据
+        function fetchDashboardData() {
+            axios.get('/api/dashboard/stats')
+                .then(function (response) {
+                    if (response.data.status === 'success') {
+                        const data = response.data.data;
+
+                        // 更新统计卡片
+                        document.getElementById('total-alerts').textContent = data.stats.total_alerts;
+                        document.getElementById('high-alerts').textContent = data.stats.high_alerts;
+                        document.getElementById('medium-alerts').textContent = data.stats.medium_alerts;
+                        document.getElementById('low-alerts').textContent = data.stats.low_alerts;
+
+                        // 更新趋势图表
+                        updateTrendChart(data.trend_data);
+
+                        // 更新类型分布图表
+                        updateTypeChart(data.alert_types);
+
+                        // 更新告警列表
+                        updateAlertList(data.recent_alerts);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Failed to fetch dashboard data:', error);
+                });
+        }
+
+        // 更新趋势图表
+        function updateTrendChart(trendData) {
+            var option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['Alert Count']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: trendData.map(item => item.time_slot)
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: 'Alert Count',
+                    type: 'line',
+                    data: trendData.map(item => item.count),
+                    smooth: true,
+                    lineStyle: {
+                        color: '#3b82f6'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: 'rgba(59, 130, 246, 0.3)'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(59, 130, 246, 0.1)'
+                        }])
+                    }
+                }]
+            };
+            trendChart.setOption(option);
+        }
+
+        // 更新类型分布图表
+        function updateTypeChart(alertTypes) {
+            var option = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left'
+                },
+                series: [{
+                    name: 'Alert Type',
+                    type: 'pie',
+                    radius: '50%',
+                    data: Object.entries(alertTypes).map(([name, value]) => ({
+                        value: value,
+                        name: name
+                    })),
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            };
+            typeChart.setOption(option);
+        }
+
+        // 格式化时间函数
+        function formatDate(time) {
+            const date = new Date(time); // 如果是时间戳或 ISO 字符串，Date 能解析
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需 +1
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // 更新告警列表
+        function updateAlertList(alerts) {
+            const alertList = document.getElementById('alert-list');
+            alertList.innerHTML = '';
+
+            alerts.forEach(alert => {
+                const severityClass = getSeverityClass(alert.threat);
+                const alertItem = document.createElement('div');
+                alertItem.className = 'alert-item';
+                alertItem.setAttribute('data-severity', alert.threat);
+                const formattedTime_create_time = formatDate(alert.create_time);
+
+                alertItem.innerHTML = `
+                    <div class="alert-item-header">
+                        <span class="alert-time">${formattedTime_create_time}</span>
+                        <span class="alert-severity ${severityClass}">${alert.threat}</span>
+                    </div>
+                    <div class="alert-content">
+                        Detected anomalous ${alert.attack_type}, Source IP: ${alert.src_ip}
+                    </div>
+                    <div class="alert-details">
+                        <div class="alert-detail-item">
+                            <i class="fas fa-network-wired"></i>
+                            <span>Attack Type: ${alert.attack_type}</span>
+                        </div>
+                        <div class="alert-detail-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Target Port: ${alert.dst_port}</span>
+                        </div>
+                    </div>
+                `;
+                alertList.appendChild(alertItem);
+            });
+        }
+
+        // Get CSS class corresponding to alert severity level
+        function getSeverityClass(threat) {
+            switch (threat) {
+                case 'High Risk':
+                    return 'severity-high';
+                case 'Medium Risk':
+                    return 'severity-medium';
+                case 'Low Risk':
+                    return 'severity-low';
+                default:
+                    return '';
+            }
+        }
+
+        // 窗口大小改变时重绘图表
+        window.addEventListener('resize', function () {
+            trendChart.resize();
+            typeChart.resize();
+        });
+
+        // 告警过滤器点击事件
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                // 更新按钮状态
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // 获取筛选条件
+                const filter = this.getAttribute('data-filter');
+
+                // Filter alert list
+                const alertItems = document.querySelectorAll('.alert-item');
+                alertItems.forEach(item => {
+                    if (filter === 'All') {
+                        item.style.display = '';
+                    } else {
+                        const severity = item.getAttribute('data-severity');
+                        console.log(severity, filter)
+                        item.style.display = severity === filter ? '' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Fetch data when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchDashboardData();
+            // Refresh data every 5 minutes
+            setInterval(fetchDashboardData, 300000);
+        });
+    </script>
+{% endblock %}

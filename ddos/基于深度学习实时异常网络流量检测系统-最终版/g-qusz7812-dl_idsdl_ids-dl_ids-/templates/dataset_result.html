@@ -1,0 +1,126 @@
+{% extends 'base-index.html' %}
+{% load static %}
+
+{% block main_body %}
+    {#<h1 style="color: #333; font-size: 32px; font-family: 'Roboto', sans-serif;">数据集分析</h1><br><br>#}
+    <style>
+
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(26, 31, 60, 0.1), rgba(45, 54, 99, 0.1));
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .hero-description {
+            color: #4a5568;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="hero-section">
+            <h1 class="hero-title">
+                Dataset Analysis
+            </h1>
+            <p class="hero-description">
+                CICIDS-2017 Dataset Analysis
+            </p>
+        </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">Attack Type Distribution</h5>
+                    <p class="card-text">Distribution of different types of attacks in the dataset, including normal traffic, denial of service attacks (ddos), port scans, and botnet attacks.</p>
+                    <div id="attack_dist" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">Total Forward Packets</h5>
+                    <p class="card-text">Top 10 total forward packets in the dataset, helping to understand network traffic characteristics.</p>
+                    <div id="protocol_stats" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">Average Packet Size TOP10</h5>
+                    <p class="card-text">TOP10 statistics of average packet size in the dataset, reflecting the packet conditions of network traffic.</p>
+                    <div id="service_top10" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">Connection Duration Distribution</h5>
+                    <p class="card-text">Distribution of network connection duration, helping to identify abnormal connection durations.</p>
+                    <div id="duration_stats" style="width: 100%; height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static "dist/echarts.min.js" %}"></script>
+<script>
+    // Wait for DOM to fully load before initializing charts
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all charts
+        var attack_chart = echarts.init(document.getElementById('attack_dist'));
+        var protocol_chart = echarts.init(document.getElementById('protocol_stats'));
+        var service_chart = echarts.init(document.getElementById('service_top10'));
+        var duration_chart = echarts.init(document.getElementById('duration_stats'));
+
+        // Set chart configurations
+        attack_chart.setOption({{ attack_dist|safe }});
+        protocol_chart.setOption({{ protocol_stats|safe }});
+        service_chart.setOption({{ service_top10|safe }});
+        duration_chart.setOption({{ duration_stats|safe }});
+
+        // Responsive adjustment
+        window.addEventListener('resize', function() {
+            attack_chart.resize();
+            protocol_chart.resize();
+            service_chart.resize();
+            duration_chart.resize();
+        });
+    });
+</script>
+{% endblock %}

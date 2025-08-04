@@ -1,0 +1,158 @@
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+}
+form {
+    margin-top: 20px;
+}
+input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+.scan-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.scan-button:hover {
+    background-color: #005bff;
+}
+
+.scan-button.green{
+    background-color: #4CAF50;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 2px 24px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+  height: 35px;
+  line-height: 35px;
+}
+
+.download-button:hover {
+  background-color: #45a049;
+}
+
+.download-button:active {
+  background-color: #3e8e41;
+}
+
+.download-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.download-button i {
+  margin-right: 8px;
+}
+
+
+.log-container {
+  height: 150px; /* 设置容器高度 */
+  overflow-y: scroll; /* 添加垂直滚动条 */
+  font-family: monospace; /* 使用等宽字体 */
+  font-size: 15px;
+  background-color: #ccc;
+  color: #000000;
+  padding: 12px;
+    width: 100%;
+}
+
+.log-content {
+  margin: 0;
+  white-space: pre-wrap; /* 保留换行符 */
+}
+
+
+/*消息提示*/
+.toast {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+  border-radius: 4px;
+  /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+  font-size: 14px;
+  max-width: 300px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.toast-header {
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+.toast-body {
+  padding: 12px;
+}
+
+#success-toast .toast-header {
+  background-color: #28a745;
+  color: #fff;
+}
+
+#failed-toast .toast-header {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.chart-container {
+    width: 100%; /* 父容器宽度为100% */
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+}
+#chart-container0, #chart-container1 {
+    flex: 1; /* 子容器平分剩余空间 */
+    height: 400px;
+}
+
+.modal-backdrop {
+    pointer-events: none;
+}

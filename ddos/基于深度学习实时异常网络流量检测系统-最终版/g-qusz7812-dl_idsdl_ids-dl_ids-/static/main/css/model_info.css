@@ -1,0 +1,138 @@
+
+.header-section p {
+    position: relative;
+    z-index: 1;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+.model-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.model-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.model-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    padding: 25px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.model-icon {
+    font-size: 32px;
+    color: #007bff;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.feature-section {
+    margin-bottom: 25px;
+}
+
+.feature-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.feature-section ul li {
+    padding: 8px 0;
+    position: relative;
+    padding-left: 25px;
+    color: #555;
+}
+
+.feature-section ul li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #28a745;
+}
+
+.metrics-section {
+    padding: 15px 0;
+}
+
+.metric-item {
+    margin-bottom: 15px;
+}
+
+.metric-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.progress {
+    height: 8px;
+    border-radius: 4px;
+}
+
+.dataset-section {
+    margin-top: 40px;
+}
+
+.dataset-stats {
+    padding: 20px;
+    color: #2c3e50;
+}
+
+.stat-group h5 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    color: #2c3e50;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-row strong {
+    color: #007bff;
+}

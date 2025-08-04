@@ -1,0 +1,26 @@
+.table-fixed {
+    position: relative;
+    overflow-y: auto;
+    height: 600px; /* Set your desired table height */
+}
+
+.table-fixed thead th {
+    position: sticky;
+    top: 0;
+    color: black;
+    background-color: #4e73df; /* Set your desired background color for header */
+    z-index: 1;
+}
+
+.table-fixed tbody tr {
+    cursor: pointer;
+}
+
+.table-fixed tbody tr td {
+    /*white-space: nowrap;*/
+    height: 80px;
+}
+
+.table-fixed table {
+    table-layout: fixed;
+}

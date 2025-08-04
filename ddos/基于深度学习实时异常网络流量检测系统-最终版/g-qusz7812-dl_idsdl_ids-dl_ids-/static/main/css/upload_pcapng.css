@@ -1,0 +1,302 @@
+/* 修改容器布局 */
+.container-fluid {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* 上传区域样式调整 */
+.upload-zone {
+    background: white;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* 统计卡片区域 */
+.statistics-summary {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* 结果提示区域 */
+.alert {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* 表格容器调整 */
+.table-container {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 600px); /* 调整最大高度 */
+    overflow-y: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* 确保表格内容正确显示 */
+.table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* 调整表格列宽度 */
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 源IP和目标IP列宽度 */
+.table th:nth-child(1), 
+.table th:nth-child(2) {
+    width: 15%;
+}
+
+/* 路径列宽度 */
+.table th:nth-child(3) {
+    width: 40%;
+}
+
+/* 攻击类型列宽度 */
+.table th:nth-child(4) {
+    width: 15%;
+}
+
+/* 数量列宽度 */
+.table th:nth-child(5) {
+    width: 10%;
+}
+
+/* 操作列宽度 */
+.table th:nth-child(6) {
+    width: 5%;
+}
+
+/* 确保模态框正确显示 */
+.modal-dialog {
+    margin: 1.75rem auto;
+}
+
+/* 响应式布局调整 */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 10px;
+    }
+    
+    .statistics-summary .row {
+        margin: 0 -5px;
+    }
+    
+    .statistics-summary .col-md-3 {
+        padding: 0 5px;
+        margin-bottom: 10px;
+    }
+    
+    .table-container {
+        max-height: calc(100vh - 400px);
+    }
+}
+
+/* 模态框样式 */
+.modal-xl {
+    max-width: 90%;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.packet-details {
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.details-btn {
+    cursor: pointer;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+.details-btn:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+}
+
+/* 图表容器样式 */
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.chart-box {
+    flex: 1;
+    min-height: 400px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 15px;
+}
+
+/* 上传表单样式 */
+.upload-form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.upload-status {
+    margin-top: 10px;
+    display: none;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .charts-container {
+        flex-direction: column;
+    }
+    
+    .chart-box {
+        width: 100%;
+    }
+}
+
+.upload-zone:hover {
+    border-color: #007bff;
+}
+
+.upload-zone.dragover {
+    background: #f8f9fa;
+    border-color: #007bff;
+}
+
+.file-input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.file-input-wrapper input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background: #0056b3;
+}
+
+.selected-file {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* 加载动画样式 */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+}
+
+.loading-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.spinner-border {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 4px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+}
+
+/* 文件信息显示样式 */
+.selected-file-info {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.file-name {
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.file-size {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.remove-file {
+    padding: 0;
+    color: #dc3545;
+}
+
+.remove-file:hover {
+    color: #bd2130;
+    text-decoration: none;
+}
+
+/* 添加删除按钮样式 */
+.btn-remove-file {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: auto;
+}
+
+.btn-remove-file:hover {
+    color: #bd2130;
+}
+
+/* 拖放样式 */
+.dragover {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+}

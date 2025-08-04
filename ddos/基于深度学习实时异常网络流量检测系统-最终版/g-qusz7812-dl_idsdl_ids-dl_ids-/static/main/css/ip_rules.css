@@ -1,0 +1,149 @@
+
+:root {
+    --background-color: #1e1e2f;
+    --card-background: #27293d;
+    --header-color: #2b3553;
+    --text-color: #fff;
+}
+
+.form-control {
+    color: #171717;
+}
+
+/* .form-control:focus {
+    background-color: #2b3553;
+    border-color: #1d8cf8;
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(29, 140, 248, 0.25);
+} */
+
+.table {
+    color: #fff;
+}
+
+
+.btn-danger {
+    background-color: #fd5d93;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #fa3476;
+}
+
+.btn-info {
+    background-color: #1d8cf8;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #0c7cd5;
+}
+
+/* 消息提示样式 */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast-notification {
+    min-width: 300px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 4px;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease forwards;
+}
+
+.toast-notification.fade-out {
+    animation: slideOut 0.3s ease forwards;
+}
+
+.toast-message {
+    display: flex;
+    align-items: center;
+}
+
+.toast-success {
+    background-color: rgba(0, 191, 154, 0.95);
+}
+
+.toast-error {
+    background-color: rgba(253, 93, 147, 0.95);
+}
+
+.toast-info {
+    background-color: rgba(29, 140, 248, 0.95);
+}
+
+.toast-warning {
+    background-color: rgba(255, 141, 114, 0.95);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* 滚动条样式 */
+.table-responsive::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #1e1e2f;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #2b3553;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover { 
+    background: #384674;
+}
+
+/* 表格固定表头 */
+.table-responsive {
+    position: relative;
+}
+
+
+/* 表格hover效果 */
+.table tbody tr:hover {
+    background-color: rgba(43, 53, 83, 0.3);
+}
+
+/* 添加渐变过渡效果 */
+.alert {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease-in-out;
+}

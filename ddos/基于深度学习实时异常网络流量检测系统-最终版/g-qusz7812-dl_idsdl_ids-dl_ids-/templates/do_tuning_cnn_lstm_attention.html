@@ -1,0 +1,153 @@
+{% extends 'base-index.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'main/css/do_tuning.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main_body %}
+    <div class="container-fluid">
+        <!-- Header Area -->
+        <div class="header-section">
+            <h3>CNN-LSTM-Attention Classification Model Tuning</h3>
+        </div>
+
+        <!-- Parameter Adjustment Area -->
+        <div class="parameter-section">
+            <div class="parameter-header">
+                <h4 class="parameter-title">
+                    <i class="fas fa-cogs"></i> Parameter Configuration
+                </h4>
+                <a href="{% url 'reset_parameter_lstm' %}" class="reset-button">
+                    Reset Parameters <i class="fas fa-redo"></i>
+                </a>
+            </div>
+
+            <form role="form" method="post" id="tuningForm">
+                {% csrf_token %}
+                <div class="parameter-group">
+                    <!-- Learning Rate -->
+                    <div class="parameter-row">
+                        <label class="parameter-label" title="Learning rate controls the step size of model parameter updates">
+                            Learning Rate (lr)
+                            <i class="fas fa-info-circle"></i>
+                        </label>
+                        <div class="range-container">
+                            <input name="lr" type="range" class="form-range" min="0.000001" max="0.01" step="0.000001"
+                                   id="customRange1"
+                                   value="{% if lr %}{{ lr }}{% else %}0.0005{% endif %}"
+                                   oninput="updateValue(this.value, 'customRangeValue1')">
+                            <span id="customRangeValue1" class="range-value">{% if lr %}{{ lr }}{% else %}0.0005{% endif %}</span>
+                        </div>
+                        <div class="parameter-info">Lower learning rate means more stable training but slower speed</div>
+                    </div>
+
+                    <!-- Weight Decay -->
+                    <div class="parameter-row">
+                        <label class="parameter-label" title="Weight decay is used to prevent overfitting">
+                            Weight Decay (wd)
+                            <i class="fas fa-info-circle"></i>
+                        </label>
+                        <div class="range-container">
+                            <input name="wd" type="range" class="form-range" min="0.000001" max="0.001" step="0.000001"
+                                   id="customRange2"
+                                   value="{% if wd %}{{ wd }}{% else %}0.00001{% endif %}"
+                                   oninput="updateValue(this.value, 'customRangeValue2')">
+                            <span id="customRangeValue2" class="range-value">{% if wd %}{{ wd }}{% else %}0.00001{% endif %}</span>
+                        </div>
+                        <div class="parameter-info">Higher weight decay provides stronger regularization effect</div>
+                    </div>
+
+                    <!-- Batch Size -->
+                    <div class="parameter-row">
+                        <label class="parameter-label" title="Batch size affects the number of samples for each parameter update">
+                            Batch Size (batch_size)
+                            <i class="fas fa-info-circle"></i>
+                        </label>
+                        <div class="range-container">
+                            <input name="batch_size" type="range" class="form-range" min="64" max="512" step="64"
+                                   id="customRange3"
+                                   value="{% if batch_size %}{{ batch_size }}{% else %}256{% endif %}"
+                                   oninput="updateValue(this.value, 'customRangeValue3')">
+                            <span id="customRangeValue3" class="range-value">{% if batch_size %}{{ batch_size }}{% else %}256{% endif %}</span>
+                        </div>
+                        <div class="parameter-info">Larger batch size means faster training but higher memory usage</div>
+                    </div>
+
+                    <!-- Training Epochs -->
+                    <div class="parameter-row">
+                        <label class="parameter-label" title="Number of epochs controls the training iterations">
+                            Training Epochs (num_epochs)
+                            <i class="fas fa-info-circle"></i>
+                        </label>
+                        <div class="range-container">
+                            <input name="num_epochs" type="range" class="form-range" min="1" max="20" step="1"
+                                   id="customRange4"
+                                   value="{% if num_epochs %}{{ num_epochs }}{% else %}1{% endif %}"
+                                   oninput="updateValue(this.value, 'customRangeValue4')">
+                            <span id="customRangeValue4" class="range-value">{% if num_epochs %}{{ num_epochs }}{% else %}1{% endif %}</span>
+                        </div>
+                        <div class="parameter-info">More epochs improve model fitting but may cause overfitting</div>
+                    </div>
+
+                    <input type="hidden" id="overSamplingValue" name="overSampling" value="{% if overSampling %}1{% else %}0{% endif %}">
+                </div>
+
+                <!-- Performance Metrics Area -->
+                <div class="metrics-section">
+                    <h5 class="mb-4">Model Performance Metrics</h5>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Accuracy</div>
+                            <div class="progress">
+                                <div id="accuracy" class="progress-bar" style="width: {{ accuracy }}%">{{ accuracy }}%</div>
+                            </div>
+                            <i id="i-accuracy-down" class="fas fa-long-arrow-alt-down trend-indicator text-danger" style="display: none"></i>
+                            <i id="i-accuracy-up" class="fas fa-long-arrow-alt-up trend-indicator text-success" style="display: none"></i>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-label">Precision</div>
+                            <div class="progress">
+                                <div id="precision" class="progress-bar bg-info" style="width: {{ precision1 }}%">{{ precision1 }}%</div>
+                            </div>
+                            <i id="i-precision-down" class="fas fa-long-arrow-alt-down trend-indicator text-danger" style="display: none"></i>
+                            <i id="i-precision-up" class="fas fa-long-arrow-alt-up trend-indicator text-success" style="display: none"></i>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-label">Recall</div>
+                            <div class="progress">
+                                <div id="recall" class="progress-bar bg-warning" style="width: {{ recall }}%">{{ recall }}%</div>
+                            </div>
+                            <i id="i-recall-down" class="fas fa-long-arrow-alt-down trend-indicator text-danger" style="display: none"></i>
+                            <i id="i-recall-up" class="fas fa-long-arrow-alt-up trend-indicator text-success" style="display: none"></i>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-label">F1-Score</div>
+                            <div class="progress">
+                                <div id="f1-score" class="progress-bar bg-success" style="width: {{ f1 }}%">{{ f1 }}%</div>
+                            </div>
+                            <i id="i-f1-score-down" class="fas fa-long-arrow-alt-down trend-indicator text-danger" style="display: none"></i>
+                            <i id="i-f1-score-up" class="fas fa-long-arrow-alt-up trend-indicator text-success" style="display: none"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button type="button" id="submitButton" class="btn btn-success train-button">
+                        <i class="fas fa-play"></i> Confirm and Start Training
+                    </button>
+                    <div class="spinner-border text-primary" style="display: none" role="status" id="loading">
+                        <span class="visually-hidden"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'main/js/do_tuning_cnn_lstm_attention.js' %}"></script>
+{% endblock %}

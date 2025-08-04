@@ -1,0 +1,95 @@
+{% extends 'base-index.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'main/css/model_tuning.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main_body %}
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h3 class="mb-3" style="color: #2c3e50; font-size: 32px">Model Tuning</h3>
+            <p class="text-muted">Select a model for parameter tuning to improve model performance on classification data</p>
+        </div>
+
+        <!-- Model Card Section -->
+        <div class="row justify-content-center">
+
+             <!-- CNN Model Card -->
+            <div class="col-md-5 mb-4">
+                <div class="model-card">
+                    <div class="card-body">
+                        <div class="model-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h4 class="model-title">CNN Classification Model</h4>
+                        <p class="model-description">
+                            CNN-based classification model that extracts network traffic features through convolutional neural networks to achieve efficient identification and classification of network attacks.
+                        </p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Feature Extraction</span>
+                            <span class="badge bg-success">Spatial Modeling</span>
+                            <span class="badge bg-info">Deep Learning</span>
+                        </div>
+                        <a href="{% url 'do_tuning_cnn' %}" class="btn btn-primary tune-btn">
+                            Start Tuning <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- LSTM Model Card -->
+            <div class="col-md-5 mb-4">
+                <div class="model-card">
+                    <div class="card-body">
+                        <div class="model-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h4 class="model-title">LSTM Classification Model</h4>
+                        <p class="model-description">
+                            LSTM-based classification model that can identify various types of network attacks. Through deep learning technology, it achieves precise classification of complex network behaviors.
+                        </p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Time Series Modeling</span>
+                            <span class="badge bg-success">Multi-class Prediction</span>
+                            <span class="badge bg-info">Deep Learning</span>
+                        </div>
+                        <a href="{% url 'do_tuning_lstm' %}" class="btn btn-primary tune-btn">
+                            Start Tuning <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- CNN-LSTM-ATTENTION Model Card -->
+            <div class="col-md-5 mb-4">
+                <div class="model-card">
+                    <div class="card-body">
+                        <div class="model-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="model-title">CNN-LSTM-ATTENTION Model</h4>
+                        <p class="model-description">
+                            Hybrid model combining CNN, LSTM and attention mechanisms that can simultaneously capture spatial and temporal features of network traffic, providing more accurate attack detection.
+                        </p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Hybrid Model</span>
+                            <span class="badge bg-success">Attention Mechanism</span>
+                            <span class="badge bg-info">Deep Learning</span>
+                        </div>
+                        <a href="{% url 'do_tuning_cnn_lstm_attention' %}" class="btn btn-primary tune-btn">
+                            Start Tuning <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+    <script src="{% static 'main/js/model_tuning.js' %}"></script>
+{% endblock %}
