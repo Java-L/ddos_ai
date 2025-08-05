@@ -231,7 +231,7 @@
             margin-left: 1rem;
         }
 
-        /* 新增数据集详情样式 */
+        /* Details style of newly added dataset */
         .dataset-info {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
@@ -273,7 +273,7 @@
             font-size: 0.9rem;
         }
 
-        /* 新增操作指南样式 */
+        /* Add operation guide style */
         .guide-section {
             margin-top: 3rem;
             padding: 2rem;
@@ -324,7 +324,7 @@
             font-weight: bold;
         }
 
-        /* 新增告警日志样式 */
+        /* Add alarm log format */
         .alert-section {
             background: white;
             border-radius: 15px;
@@ -511,7 +511,7 @@
         <div class="hero-section">
             <h1 class="hero-title">
                 <i class="fas fa-exclamation-triangle"></i>
-                Real-time Network Intrusion Detection System Based on Deep Learning
+                DF Defence
             </h1>
             <p class="hero-description">
                 Real-time monitoring of network traffic anomalies, timely detection and handling of potential security threats.
@@ -586,30 +586,30 @@
     <script src="{% static "main/js/index.js" %}"></script>
     <script src="{% static "dist/echarts.min.js" %}"></script>
     <script>
-        // 初始化图表
+        // Initialize chart
         var trendChart = echarts.init(document.getElementById('alert-trend-chart'));
         var typeChart = echarts.init(document.getElementById('alert-type-chart'));
 
-        // 获取仪表盘数据
+        // Obtain dashboard data
         function fetchDashboardData() {
             axios.get('/api/dashboard/stats')
                 .then(function (response) {
                     if (response.data.status === 'success') {
                         const data = response.data.data;
 
-                        // 更新统计卡片
+                        // Update statistical card
                         document.getElementById('total-alerts').textContent = data.stats.total_alerts;
                         document.getElementById('high-alerts').textContent = data.stats.high_alerts;
                         document.getElementById('medium-alerts').textContent = data.stats.medium_alerts;
                         document.getElementById('low-alerts').textContent = data.stats.low_alerts;
 
-                        // 更新趋势图表
+                        // Update trend chart
                         updateTrendChart(data.trend_data);
 
-                        // 更新类型分布图表
+                        // Update type distribution chart
                         updateTypeChart(data.alert_types);
 
-                        // 更新告警列表
+                        // Update alarm list
                         updateAlertList(data.recent_alerts);
                     }
                 })
@@ -618,7 +618,7 @@
                 });
         }
 
-        // 更新趋势图表
+        // Update trend chart
         function updateTrendChart(trendData) {
             var option = {
                 tooltip: {
@@ -663,7 +663,7 @@
             trendChart.setOption(option);
         }
 
-        // 更新类型分布图表
+        // Update type distribution chart
         function updateTypeChart(alertTypes) {
             var option = {
                 tooltip: {
@@ -693,11 +693,11 @@
             typeChart.setOption(option);
         }
 
-        // 格式化时间函数
+        // Format time function
         function formatDate(time) {
-            const date = new Date(time); // 如果是时间戳或 ISO 字符串，Date 能解析
+            const date = new Date(time); // If it is a timestamp or ISO string, Date can parse it
             const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需 +1
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // The month starts from 0 and needs to be incremented by 1
             const day = String(date.getDate()).padStart(2, '0');
             const hours = String(date.getHours()).padStart(2, '0');
             const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -705,7 +705,7 @@
             return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         }
 
-        // 更新告警列表
+        // Update alarm list
         function updateAlertList(alerts) {
             const alertList = document.getElementById('alert-list');
             alertList.innerHTML = '';
@@ -754,20 +754,20 @@
             }
         }
 
-        // 窗口大小改变时重绘图表
+        // Redraw the chart when the window size changes
         window.addEventListener('resize', function () {
             trendChart.resize();
             typeChart.resize();
         });
 
-        // 告警过滤器点击事件
+        // Alarm filter click event
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function () {
-                // 更新按钮状态
+                // Update button status
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
-                // 获取筛选条件
+                // Obtain filtering criteria
                 const filter = this.getAttribute('data-filter');
 
                 // Filter alert list

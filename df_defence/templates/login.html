@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login - Real-time Network Intrusion Detection System Based on Deep Learning</title>
+    <title>Login - DF Defence</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static "myadmin/vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
@@ -182,10 +182,10 @@
 
             <div class="login-footer">
                 <a href="{% url 'myadmin_register' %}">
-                    <i class="fas fa-user-plus mr-1"></i>创建账户
+                    <i class="fas fa-user-plus mr-1"></i>create account
                 </a>
                 <a href="{% url 'forgot_pd' %}">
-                    <i class="fas fa-key mr-1"></i>忘记密码
+                    <i class="fas fa-key mr-1"></i>forgot password
                 </a>
             </div>
         </div>
@@ -199,12 +199,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 验证码输入框样式
+            // Verification code input box style
             var captchaInput = document.getElementById("id_captcha_1");
             captchaInput.classList.add('form-control');
-            captchaInput.setAttribute('placeholder', '请输入验证码');
+            captchaInput.setAttribute('placeholder', 'Please enter the verification code');
 
-            // 显示服务器返回的错误信息
+            // Display the error message returned by the server
             {% if messages %}
                 {% for message in messages %}
                     {% if forloop.last %}
@@ -213,7 +213,7 @@
                 {% endfor %}
             {% endif %}
 
-            // 表单提交验证
+            // Form submission verification
             document.getElementById('loginForm').addEventListener('submit', function (e) {
                 const username = this.querySelector('input[name="username"]').value;
                 const password = this.querySelector('input[name="pass"]').value;
@@ -221,7 +221,7 @@
 
                 if (!username || !password || !captcha) {
                     e.preventDefault();
-                    showToast('请填写所有必填字段', 'error');
+                    showToast('Please fill in all required fields', 'error');
                 }
             });
         });
@@ -231,7 +231,7 @@
         }
 
         function showToast(message, type = 'error') {
-            // 移除现有的错误消息
+            // Remove the existing error message
             const existingToast = document.querySelector('.error-message');
             if (existingToast) {
                 existingToast.remove();

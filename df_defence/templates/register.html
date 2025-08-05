@@ -135,7 +135,7 @@
             <div class="login-header">
                 <i class="fas fa-user-plus"></i>
                 <h1>Create New Account</h1>
-                <p>Welcome to register for the Real-time Network Intrusion Detection System Based on Deep Learning</p>
+                <p>Welcome to register for DF-Defence System</p>
             </div>
 
             <form action="{% url 'myadmin_do_register' %}" method="post" id="registerForm">
@@ -176,7 +176,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 显示服务器返回的错误信息
+            // Display the error message returned by the server
             {% if messages %}
                 {% for message in messages %}
                     {% if forloop.last %}
@@ -198,7 +198,7 @@
         });
 
         function showToast(message, type = 'error') {
-            // 移除现有的错误消息
+            // Remove the existing error message
             const existingToast = document.querySelector('.error-message');
             if (existingToast) {
                 existingToast.remove();
