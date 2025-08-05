@@ -39,20 +39,20 @@ def index(request, pIndex=1):
         }
         return render(request, 'myadmin/user/index.html', context)
     except Exception as e:
-        print(f"获取用户列表出错：{str(e)}")
-        messages.error(request, '获取用户列表失败')
+        print(f"Error getting user list: {str(e)}")
+        messages.error(request, 'Failed to get user list')
         return render(request, 'myadmin/user/index.html', {'userlist': []})
 
 
 def insert(request):
-    """添加用户"""
+    """Add user / 添加用户"""
     try:
         if request.method == "POST":
             ob = User()
             ob.username = request.POST['username']
             ob.nickname = request.POST['nickname']
 
-            # 密码加密处理
+            # Password encryption processing / 密码加密处理
             md5 = hashlib.md5()
             n = random.randint(100000, 999999)
             s = request.POST['password'] + str(n)
@@ -65,37 +65,37 @@ def insert(request):
             ob.update_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             ob.save()
 
-            messages.success(request, '添加用户成功')
+            messages.success(request, 'User added successfully')
             return redirect('myadmin_user_index', 1)
     except Exception as err:
-        print(f"添加用户出错：{str(err)}")
-        messages.error(request, '添加用户失败')
+        print(f"Error adding user: {str(err)}")
+        messages.error(request, 'Failed to add user')
     return redirect('myadmin_user_index', 1)
 
 
 def delete(request, uid=0):
-    """删除用户"""
+    """Delete user / 删除用户"""
     try:
         ob = User.objects.get(id=uid)
         ob.status = 9
         ob.update_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         ob.save()
-        messages.success(request, '删除用户成功')
+        messages.success(request, 'User deleted successfully')
     except Exception as e:
-        print(f"删除用户出错：{str(e)}")
-        messages.error(request, '删除用户失败')
+        print(f"Error deleting user: {str(e)}")
+        messages.error(request, 'Failed to delete user')
     return redirect('myadmin_user_index', 1)
 
 
 def edit(request, uid=0):
-    """编辑用户"""
+    """Edit user / 编辑用户"""
     try:
         user = User.objects.get(id=uid)
         if request.method == 'POST':
             user.username = request.POST.get('username', user.username)
             user.nickname = request.POST.get('nickname', user.nickname)
 
-            # 如果提供了新密码则更新
+            # Update if new password is provided / 如果提供了新密码则更新
             if password := request.POST.get('password'):
                 md5 = hashlib.md5()
                 n = random.randint(100000, 999999)
@@ -107,25 +107,25 @@ def edit(request, uid=0):
             user.status = int(request.POST.get('status', user.status))
             user.update_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             user.save()
-            messages.success(request, '更新用户成功')
+            messages.success(request, 'User updated successfully')
             return redirect('myadmin_user_index', 1)
 
         return render(request, 'myadmin/user/edit.html', {'user': user})
     except Exception as err:
-        print(f"编辑用户出错：{str(err)}")
-        messages.error(request, '编辑用户失败')
+        print(f"Error editing user: {str(err)}")
+        messages.error(request, 'Failed to edit user')
         return redirect('myadmin_user_index', 1)
 
 
 def update(request, uid):
-    """切换用户状态"""
+    """Toggle user status / 切换用户状态"""
     try:
         user = User.objects.get(id=uid)
         user.status = 2 if user.status == 1 else 1
         user.update_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         user.save()
-        messages.success(request, '状态更新成功')
+        messages.success(request, 'Status updated successfully')
     except Exception as err:
-        print(f"更新用户状态出错：{str(err)}")
-        messages.error(request, '状态更新失败')
+        print(f"Error updating user status: {str(err)}")
+        messages.error(request, 'Failed to update status')
     return redirect('myadmin_user_index', 1)

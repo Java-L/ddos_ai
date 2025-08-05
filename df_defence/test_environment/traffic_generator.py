@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-网络流量生成器
-用于生成各种类型的网络流量来测试检测系统
+Network Traffic Generator
+For generating various types of network traffic to test detection system
+网络流量生成器 - 用于生成各种类型的网络流量来测试检测系统
 """
 
 import socket
@@ -19,39 +20,39 @@ class TrafficGenerator:
         self.target_ip = target_ip
         self.target_port = target_port
         self.running = False
-        
+
     def generate_benign_traffic(self, duration=60):
-        """生成正常流量"""
-        print(f"[正常流量] 开始生成正常流量，持续{duration}秒")
-        
+        """Generate normal traffic / 生成正常流量"""
+        print(f"[Normal Traffic] Starting normal traffic generation for {duration} seconds")
+
         start_time = time.time()
         request_count = 0
-        
+
         while (time.time() - start_time) < duration:
             try:
-                # 模拟正常用户行为
+                # Simulate normal user behavior / 模拟正常用户行为
                 actions = [
                     self._normal_web_browsing,
                     self._normal_api_calls,
                     self._normal_file_access,
                     self._normal_search_queries
                 ]
-                
+
                 action = random.choice(actions)
                 action()
                 request_count += 1
-                
-                # 正常用户的访问间隔
+
+                # Normal user access interval / 正常用户的访问间隔
                 time.sleep(random.uniform(2, 8))
-                
+
             except Exception as e:
-                print(f"正常流量生成错误: {e}")
+                print(f"Normal traffic generation error: {e}")
                 time.sleep(1)
-        
-        print(f"[正常流量] 生成完成，共发送 {request_count} 个请求")
-    
+
+        print(f"[Normal Traffic] Generation completed, sent {request_count} requests")
+
     def _normal_web_browsing(self):
-        """模拟正常网页浏览"""
+        """Simulate normal web browsing / 模拟正常网页浏览"""
         pages = [
             "/",
             "/admin/",
@@ -59,10 +60,10 @@ class TrafficGenerator:
             "/admin/main/trafficlog/",
             "/admin/main/ipaddressrule/",
         ]
-        
+
         page = random.choice(pages)
         url = f"http://{self.target_ip}:{self.target_port}{page}"
-        
+
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -70,13 +71,13 @@ class TrafficGenerator:
             'Accept-Encoding': 'gzip, deflate',
             'Connection': 'keep-alive',
         }
-        
+
         response = requests.get(url, headers=headers, timeout=10)
-        print(f"正常浏览: {page} - {response.status_code}")
-    
+        print(f"Normal browsing: {page} - {response.status_code}")
+
     def _normal_api_calls(self):
-        """模拟正常API调用"""
-        # 模拟获取静态资源
+        """Simulate normal API calls / 模拟正常API调用"""
+        # Simulate getting static resources / 模拟获取静态资源
         resources = [
             "/static/admin/css/base.css",
             "/static/admin/js/core.js",

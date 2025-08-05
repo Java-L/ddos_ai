@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ffc3dcff-5220-4155-a870-bd805a92bd1d" name="变更" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2rg3ohDcWf3kJDUdQ24BcbKpHd2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "F:/安全产品项目/基于深度学习实时异常网络流量检测系统-cnn-上传数据集/g-qusz7812-dl_idsdl_ids-dl_ids-",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\安全产品项目\基于深度学习实时异常网络流量检测系统\g-qusz7812-dl_idsdl_ids-dl_ids-\static\dist" />
+      <recent name="F:\安全产品项目\基于深度学习实时异常网络流量检测系统\g-qusz7812-dl_idsdl_ids-dl_ids-\main\DL\data" />
+      <recent name="F:\安全产品项目\基于深度学习实时异常网络流量检测系统\g-qusz7812-dl_idsdl_ids-dl_ids-\model" />
+      <recent name="F:\安全产品项目\基于深度学习实时异常网络流量检测系统\g-qusz7812-dl_idsdl_ids-dl_ids-\main" />
+      <recent name="F:\安全产品项目\基于深度学习实时异常网络流量检测系统\g-qusz7812-dl_idsdl_ids-dl_ids-\main\DL\lstm" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\安全产品项目\基于深度学习实时异常网络流量检测系统\g-qusz7812-dl_idsdl_ids-dl_ids-\templates" />
+      <recent name="$PROJECT_DIR$/static/data_set/cic2018" />
+      <recent name="$PROJECT_DIR$/main/DL/lstm" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django 服务器.g-qusz7812-dl_idsdl_ids-dl_ids-">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main/DL/lstm" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/DL/lstm/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main/DL/xgboost" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/DL/xgboost/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main/DL/wrf_iwrf" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/DL/wrf_iwrf/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main/DL/lstm" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/DL/lstm/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/main" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="g-qusz7812-dl_idsdl_ids-dl_ids-" type="Python.DjangoServer" factoryName="Django server">
+      <module name="g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="dl_ids.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8989" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="python manage.py runserver 8000 --noreload " />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Django 服务器.g-qusz7812-dl_idsdl_ids-dl_ids-" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.train (2)" />
+      <item itemvalue="Python.views" />
+      <item itemvalue="Python.train" />
+      <item itemvalue="Python.train (1)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.train (1)" />
+        <item itemvalue="Python.train (2)" />
+        <item itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="ffc3dcff-5220-4155-a870-bd805a92bd1d" name="变更" comment="" />
+      <created>1736967066882</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736967066882</updated>
+      <workItem from="1736967068423" duration="1596000" />
+      <workItem from="1737030427948" duration="16000" />
+      <workItem from="1737637100004" duration="1173000" />
+      <workItem from="1737725273259" duration="9000" />
+      <workItem from="1737725651126" duration="229000" />
+      <workItem from="1737976327884" duration="1385000" />
+      <workItem from="1738681759455" duration="45000" />
+      <workItem from="1738761989118" duration="603000" />
+      <workItem from="1738766755560" duration="70000" />
+      <workItem from="1739183359096" duration="2459000" />
+      <workItem from="1739185952465" duration="7576000" />
+      <workItem from="1739194891363" duration="1188000" />
+      <workItem from="1739196097448" duration="12852000" />
+      <workItem from="1739253614154" duration="236000" />
+      <workItem from="1739268806331" duration="40000" />
+      <workItem from="1739269998552" duration="1201000" />
+      <workItem from="1739290441127" duration="8716000" />
+      <workItem from="1739342735475" duration="6131000" />
+      <workItem from="1739350617379" duration="1121000" />
+      <workItem from="1739557828701" duration="1384000" />
+      <workItem from="1739684168566" duration="12176000" />
+      <workItem from="1739711623114" duration="2341000" />
+      <workItem from="1739715278639" duration="704000" />
+      <workItem from="1739778612504" duration="101000" />
+      <workItem from="1739785224282" duration="2000" />
+      <workItem from="1739805535390" duration="42000" />
+      <workItem from="1741241205458" duration="70000" />
+      <workItem from="1741329366028" duration="5000" />
+      <workItem from="1741594652340" duration="166000" />
+      <workItem from="1741672796588" duration="11000" />
+      <workItem from="1741673911794" duration="19042000" />
+      <workItem from="1745322122375" duration="862000" />
+      <workItem from="1745323715869" duration="620000" />
+      <workItem from="1745400739461" duration="16723000" />
+      <workItem from="1745425688679" duration="8963000" />
+      <workItem from="1745477588259" duration="3715000" />
+      <workItem from="1745489856029" duration="23000" />
+      <workItem from="1745573449947" duration="5589000" />
+      <workItem from="1745596043044" duration="6475000" />
+      <workItem from="1745602637709" duration="2932000" />
+      <workItem from="1745648707709" duration="1522000" />
+      <workItem from="1745653186522" duration="1379000" />
+      <workItem from="1745667954384" duration="1177000" />
+      <workItem from="1745672934625" duration="6000" />
+      <workItem from="1745749311201" duration="3176000" />
+      <workItem from="1745753201380" duration="560000" />
+      <workItem from="1745758960816" duration="17000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$train__1_.coverage" NAME="train (1) 覆盖结果" MODIFIED="1741695239845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL/xgboost" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$draw_net.coverage" NAME="draw_net 覆盖结果" MODIFIED="1739715947585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$train__2_.coverage" NAME="train (2) 覆盖结果" MODIFIED="1741686437975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL/wrf_iwrf" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$test_model_duofenlei.coverage" NAME="test_model_duofenlei 覆盖结果" MODIFIED="1739704309872" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$test_model_new.coverage" NAME="test_model_new 覆盖结果" MODIFIED="1739703585948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$use_model.coverage" NAME="use_model 覆盖结果" MODIFIED="1739186304855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$load_model.coverage" NAME="load_model 覆盖结果" MODIFIED="1739186160554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$test.coverage" NAME="test 覆盖结果" MODIFIED="1741698054854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL/lstm" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$views.coverage" NAME="views 覆盖结果" MODIFIED="1741685048333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
+    <SUITE FILE_PATH="coverage/g_qusz7812_dl_idsdl_ids_dl_ids_$train.coverage" NAME="train 覆盖结果" MODIFIED="1741697721360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main/DL/lstm" />
+  </component>
+</project>

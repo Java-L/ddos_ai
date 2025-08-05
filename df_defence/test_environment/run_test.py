@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Attack-Defense Environment Test Startup Script
 攻防环境测试启动脚本
 """
 
@@ -18,10 +19,10 @@ class TestEnvironment:
         self.django_process = None
         self.attack_process = None
         self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        
+
     def start_django_server(self):
-        """启动Django服务器"""
-        print("启动Django服务器...")
+        """Start Django server / 启动Django服务器"""
+        print("Starting Django server...")
         try:
             os.chdir(self.base_dir)
             self.django_process = subprocess.Popen(
@@ -29,228 +30,228 @@ class TestEnvironment:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-            
-            # 等待服务器启动
+
+            # Wait for server to start / 等待服务器启动
             for i in range(30):
                 try:
                     response = requests.get("http://127.0.0.1:8000/", timeout=2)
                     if response.status_code in [200, 302, 404]:
-                        print("✓ Django服务器启动成功")
+                        print("✓ Django server started successfully")
                         return True
                 except:
                     time.sleep(1)
-                    
-            print("✗ Django服务器启动失败")
+
+            print("✗ Django server failed to start")
             return False
-            
+
         except Exception as e:
-            print(f"启动Django服务器时出错: {e}")
+            print(f"Error starting Django server: {e}")
             return False
-    
+
     def wait_for_user_ready(self):
-        """等待用户确认准备就绪"""
+        """Wait for user confirmation / 等待用户确认准备就绪"""
         print("\n" + "="*60)
-        print("测试环境准备就绪！")
-        print("请确保以下步骤已完成：")
-        print("1. Django服务器正在运行 (http://127.0.0.1:8000)")
-        print("2. 已登录管理后台 (http://127.0.0.1:8000/admin)")
-        print("3. 可以查看流量日志和检测结果")
+        print("Test environment is ready!")
+        print("Please ensure the following steps are completed:")
+        print("1. Django server is running (http://127.0.0.1:8000)")
+        print("2. Logged into admin backend (http://127.0.0.1:8000/admin)")
+        print("3. Can view traffic logs and detection results")
         print("="*60)
-        
-        input("按回车键开始攻击测试...")
-    
+
+        input("Press Enter to start attack testing...")
+
     def run_attack_simulation(self):
-        """运行攻击模拟"""
-        print("\n开始攻击模拟...")
-        
+        """Run attack simulation / 运行攻击模拟"""
+        print("\nStarting attack simulation...")
+
         attack_script = os.path.join(os.path.dirname(__file__), "attack_simulator.py")
-        
+
         try:
-            # 运行攻击模拟器
+            # Run attack simulator / 运行攻击模拟器
             self.attack_process = subprocess.Popen([
                 sys.executable, attack_script,
                 "--target", "127.0.0.1",
-                "--port", "8000", 
+                "--port", "8000",
                 "--attack", "all",
                 "--normal"
             ])
-            
-            print("✓ 攻击模拟器已启动")
+
+            print("✓ Attack simulator started")
             return True
-            
+
         except Exception as e:
-            print(f"启动攻击模拟器时出错: {e}")
+            print(f"Error starting attack simulator: {e}")
             return False
-    
+
     def monitor_system(self):
-        """监控系统状态"""
-        print("\n开始监控系统...")
-        
+        """Monitor system status / 监控系统状态"""
+        print("\nStarting system monitoring...")
+
         start_time = time.time()
-        
+
         while True:
             try:
-                # 检查Django服务器状态
+                # Check Django server status / 检查Django服务器状态
                 response = requests.get("http://127.0.0.1:8000/admin/", timeout=5)
-                server_status = "运行中" if response.status_code in [200, 302] else "异常"
-                
-                # 检查攻击进程状态
+                server_status = "Running" if response.status_code in [200, 302] else "Error"
+
+                # Check attack process status / 检查攻击进程状态
                 if self.attack_process:
-                    attack_status = "运行中" if self.attack_process.poll() is None else "已完成"
+                    attack_status = "Running" if self.attack_process.poll() is None else "Completed"
                 else:
-                    attack_status = "未启动"
-                
-                # 显示状态
+                    attack_status = "Not Started"
+
+                # Display status / 显示状态
                 elapsed = int(time.time() - start_time)
-                print(f"\r[{elapsed:03d}s] Django: {server_status} | 攻击模拟: {attack_status}", end="", flush=True)
-                
-                # 如果攻击完成，退出监控
+                print(f"\r[{elapsed:03d}s] Django: {server_status} | Attack Simulation: {attack_status}", end="", flush=True)
+
+                # Exit monitoring if attack is completed / 如果攻击完成，退出监控
                 if self.attack_process and self.attack_process.poll() is not None:
-                    print("\n攻击模拟完成！")
+                    print("\nAttack simulation completed!")
                     break
-                    
+
                 time.sleep(2)
-                
+
             except KeyboardInterrupt:
-                print("\n用户中断监控")
+                print("\nUser interrupted monitoring")
                 break
             except Exception as e:
-                print(f"\n监控出错: {e}")
+                print(f"\nMonitoring error: {e}")
                 time.sleep(5)
-    
+
     def show_results(self):
-        """显示测试结果"""
+        """Display test results / 显示测试结果"""
         print("\n" + "="*60)
-        print("测试完成！请查看以下内容：")
+        print("Test completed! Please check the following:")
         print("="*60)
-        print("1. Django管理后台: http://127.0.0.1:8000/admin/")
-        print("   - 用户名: admin")
-        print("   - 密码: admin")
+        print("1. Django admin backend: http://127.0.0.1:8000/admin/")
+        print("   - Username: admin")
+        print("   - Password: admin")
         print()
-        print("2. 查看检测结果：")
-        print("   - 流量日志: http://127.0.0.1:8000/admin/main/trafficlog/")
-        print("   - IP规则: http://127.0.0.1:8000/admin/main/ipaddressrule/")
-        print("   - 调优模型: http://127.0.0.1:8000/admin/main/tuningmodels/")
+        print("2. View detection results:")
+        print("   - Traffic logs: http://127.0.0.1:8000/admin/main/trafficlog/")
+        print("   - IP rules: http://127.0.0.1:8000/admin/main/ipaddressrule/")
+        print("   - Tuning models: http://127.0.0.1:8000/admin/main/tuningmodels/")
         print()
-        print("3. 主应用界面: http://127.0.0.1:8000/")
+        print("3. Main application interface: http://127.0.0.1:8000/")
         print()
-        print("4. 检查终端输出中的检测日志")
+        print("4. Check detection logs in terminal output")
         print("="*60)
-    
+
     def cleanup(self):
-        """清理资源"""
-        print("\n清理测试环境...")
-        
+        """Clean up resources / 清理资源"""
+        print("\nCleaning up test environment...")
+
         if self.attack_process:
             try:
                 self.attack_process.terminate()
                 self.attack_process.wait(timeout=5)
-                print("✓ 攻击模拟器已停止")
+                print("✓ Attack simulator stopped")
             except:
                 try:
                     self.attack_process.kill()
                 except:
                     pass
-        
+
         if self.django_process:
             try:
                 self.django_process.terminate()
                 self.django_process.wait(timeout=5)
-                print("✓ Django服务器已停止")
+                print("✓ Django server stopped")
             except:
                 try:
                     self.django_process.kill()
                 except:
                     pass
-    
+
     def run_full_test(self):
-        """运行完整测试"""
+        """Run complete test / 运行完整测试"""
         try:
-            print("深度学习网络流量异常检测系统 - 攻防环境测试")
+            print("Deep Learning Network Traffic Anomaly Detection System - Attack-Defense Environment Test")
             print("="*60)
-            print(f"测试开始时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"Test start time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             print("="*60)
-            
-            # 1. 启动Django服务器
+
+            # 1. Start Django server / 启动Django服务器
             if not self.start_django_server():
                 return False
-            
-            # 2. 等待用户准备
+
+            # 2. Wait for user preparation / 等待用户准备
             self.wait_for_user_ready()
-            
-            # 3. 启动攻击模拟
+
+            # 3. Start attack simulation / 启动攻击模拟
             if not self.run_attack_simulation():
                 return False
-            
-            # 4. 监控系统
+
+            # 4. Monitor system / 监控系统
             self.monitor_system()
-            
-            # 5. 显示结果
+
+            # 5. Display results / 显示结果
             self.show_results()
-            
+
             return True
-            
+
         except KeyboardInterrupt:
-            print("\n用户中断测试")
+            print("\nUser interrupted test")
             return False
         except Exception as e:
-            print(f"测试过程中出错: {e}")
+            print(f"Error during test: {e}")
             return False
         finally:
             self.cleanup()
 
 def signal_handler(signum, frame):
-    """信号处理器"""
-    print("\n收到中断信号，正在清理...")
+    """Signal handler / 信号处理器"""
+    print("\nReceived interrupt signal, cleaning up...")
     sys.exit(0)
 
 def check_requirements():
-    """检查运行要求"""
-    print("检查运行环境...")
-    
-    # 检查Python版本
+    """Check runtime requirements / 检查运行要求"""
+    print("Checking runtime environment...")
+
+    # Check Python version / 检查Python版本
     if sys.version_info < (3, 6):
-        print("✗ 需要Python 3.6或更高版本")
+        print("✗ Python 3.6 or higher is required")
         return False
-    
-    # 检查必要的模块
+
+    # Check required modules / 检查必要的模块
     required_modules = ['django', 'requests', 'scapy', 'torch', 'numpy', 'pandas']
     missing_modules = []
-    
+
     for module in required_modules:
         try:
             __import__(module)
         except ImportError:
             missing_modules.append(module)
-    
+
     if missing_modules:
-        print(f"✗ 缺少必要模块: {', '.join(missing_modules)}")
-        print("请运行: pip install " + " ".join(missing_modules))
+        print(f"✗ Missing required modules: {', '.join(missing_modules)}")
+        print("Please run: pip install " + " ".join(missing_modules))
         return False
-    
-    print("✓ 运行环境检查通过")
+
+    print("✓ Runtime environment check passed")
     return True
 
 def main():
-    # 设置信号处理
+    # Set signal handling / 设置信号处理
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
-    
-    # 检查运行要求
+
+    # Check requirements / 检查运行要求
     if not check_requirements():
         sys.exit(1)
-    
-    # 创建测试环境
+
+    # Create test environment / 创建测试环境
     test_env = TestEnvironment()
-    
-    # 运行测试
+
+    # Run test / 运行测试
     success = test_env.run_full_test()
-    
+
     if success:
-        print("\n测试成功完成！")
+        print("\nTest completed successfully!")
         sys.exit(0)
     else:
-        print("\n测试失败！")
+        print("\nTest failed!")
         sys.exit(1)
 
 if __name__ == "__main__":

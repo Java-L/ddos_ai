@@ -1,0 +1,68 @@
+# Deep Learning Network Traffic Anomaly Detection System
+# Dependencies for Django-based DDoS detection system
+
+# Core Django Framework
+Django==5.1.4
+django-simple-captcha==0.6.0
+
+# Deep Learning and Machine Learning
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+
+# Data Visualization and Analysis
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# Network and Security
+scapy>=2.4.5
+requests>=2.25.0
+urllib3>=1.26.0
+
+# Database and ORM
+sqlparse>=0.4.0
+
+# Web Development
+Pillow>=8.0.0
+asgiref>=3.4.0
+
+# System and Utilities
+psutil>=5.8.0
+python-dateutil>=2.8.0
+pytz>=2021.1
+
+# Additional dependencies for the application
+six>=1.16.0
+setuptools>=65.0.0
+wheel>=0.37.0
+
+# For better compatibility
+packaging>=21.0
+importlib-metadata>=4.0.0
+
+# Optional: For advanced features
+# cryptography>=3.4.0  # For SSL/TLS analysis
+# paramiko>=2.7.0      # For SSH-based attacks simulation
+# dnspython>=2.1.0     # For DNS-based attacks
+
+# Development and Testing (optional)
+# pytest>=6.0.0
+# pytest-django>=4.0.0
+# coverage>=5.0.0
+
+# Note: Some packages may require additional system dependencies:
+# - Windows: Install WinPcap or Npcap for Scapy
+# - Linux: sudo apt-get install libpcap-dev python3-dev
+# - macOS: brew install libpcap
+
+# Installation command:
+# pip install -r requirements.txt
+
+# For development environment:
+# pip install -r requirements.txt
+# python manage.py migrate
+# python manage.py collectstatic --noinput
+# python manage.py createsuperuser
